@@ -12,6 +12,7 @@ pthread_t tid[2];
 int status_crab = status_lohan = 100; // status awal
 void * feed_lohan();
 void * feed_crab();
+void * lohan_and_crab(void *arg);
 
 int main(void)
 {
@@ -34,8 +35,14 @@ int main(void)
     }
     pthread_join(tid[0],NULL);
     pthread_join(tid[1],NULL);
+
+    while(status_lohan > 0 && status_lohan <= 100 && status_crab > 0 && status_crab <= 100)
+    {
+        sdsd    
+    }
+
     return 0;
-}
+} // end main()
 
 void * feed_lohan()
 {
@@ -46,3 +53,18 @@ void * feed_crab()
 {
     status_crab += 10;
 }
+
+void * lohan_and_crab(void *arg)
+{
+    unsigned long i = 0;
+    pthread_t id = pthread_self();
+ 
+    if(pthread_equal(id,tid[0]))
+    {
+        //ini lohan yaah
+    }
+    else if(pthread_equal(id,tid[1]))
+    {
+        //ini crab
+    }
+}// end lohan_and_crab
