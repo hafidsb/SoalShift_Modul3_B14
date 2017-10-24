@@ -27,11 +27,11 @@ int main(void)
             err=pthread_create(&(tid[i]),NULL, &lohan_and_crab, NULL);//membuat thread
             if(err!=0)//cek error
             {
-                printf("\n can't create thread : [%s]\n",strerror(err));
+                printf("\ncan't create thread : [%s]\n",strerror(err));
             }
             else
             {
-                printf("\n create thread success\n");
+                printf("\ncreate thread success\n");
             }
             i++;
         }   
@@ -64,21 +64,26 @@ void * lohan_and_crab(void *arg)
     if(pthread_equal(id,tid[0]))
     {
         //ini lohan yaah
-        while(status_lohan>0 && status_lohan<=100)
+        while(1)
         {
-          printf("asuuu\n");
+          printf("astaghfirullah\n");
           sleep(2);
-          status_lohan -= 20;
-          printf("%d\n", status_lohan);
+          status_lohan -= 10;
+          if(status_lohan<=0 || status_lohan>100 || status_crab<=0 || status_crab>100) break;
+          printf("%d\n", status_lohan);          
         }    
     }
     if(pthread_equal(id,tid[1]))
     {
         //ini crab
-        printf("kontool\n");
-        sleep(7);
-        status_crab -= 10;
-        printf("%d\n", status_crab);
+        while(1)
+        {
+          printf("subhanallah\n");
+          sleep(3);
+          status_crab -= 20;
+          if(status_lohan<=0 || status_lohan>100 || status_crab<=0 || status_crab>100)break;            
+          printf("%d\n", status_crab); 
+        }
     }
     /*if(pthread_equal(id,tid[2]))
     {
