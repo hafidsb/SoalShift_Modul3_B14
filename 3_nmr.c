@@ -8,6 +8,7 @@
 *compile dengan cara gcc -pthread -o [output] input.c *
 *******************************************************/
 
+int check = 0;
 pthread_t tid[2];
 int status_crab = 100, status_lohan = 100; // status awal
 void * feed_lohan();
@@ -17,7 +18,7 @@ void * lohan_and_crab(void *arg);
 int main(void)
 {
     int i=0;
-    int err;
+    int err, opsi;
     pthread_t crab, lohan; // inisialisasi trit awal
 
     while(1)
@@ -34,12 +35,28 @@ int main(void)
                 printf("\ncreate thread success\n");
             }
             i++;
-        }   
+        }// end thread-maker while
+        printf("status lohan = %d  ||  status crab = %d\n", status_lohan, status_crab);
+        printf("Opsi:\n");
+        printf("1. Feed lohan\n");
+        printf("2. Feed crab\n");
+        printf("Input a number(1 or 2)> ");
+        scanf("%d", &opsi);
+        if(opsi == 1)
+        feed_lohan();
+        else if(opsi == 2)
+        feed_crab();
+        else{ 
+        printf("Number invalid, try again!");
+        sleep(4);
+        }
+        system("clear");
+   
         if(status_lohan <= 0 || status_lohan > 100 || status_crab <= 0 || status_crab > 100)
         break;
     }// end while
     
-    printf("Game over x.x\n");
+    printf("Game over x.x\n"); check = 1;
     
     pthread_join(tid[0],NULL);
     pthread_join(tid[1],NULL);  
@@ -64,47 +81,26 @@ void * lohan_and_crab(void *arg)
     if(pthread_equal(id,tid[0]))
     {
         //ini lohan yaah
-        while(1)
+        while(check == 0)
         {
-          printf("astaghfirullah\n");
-          sleep(2);
-          status_lohan -= 10;
-          if(status_lohan<=0 || status_lohan>100 || status_crab<=0 || status_crab>100) break;
-          printf("%d\n", status_lohan);          
+          printf("\nlohan_status\n");
+          sleep(5);
+          status_lohan -= 20;
+          if(check == 1) break;
+          printf("\n%d\n", status_lohan);          
         }    
     }
     if(pthread_equal(id,tid[1]))
     {
         //ini crab
-        while(1)
+        while(check == 0)
         {
-          printf("subhanallah\n");
-          sleep(3);
+          printf("\ncrab_status\n");
+          sleep(8);
           status_crab -= 20;
-          if(status_lohan<=0 || status_lohan>100 || status_crab<=0 || status_crab>100)break;            
-          printf("%d\n", status_crab); 
+          if(check == 1)break;            
+          printf("\n%d\n", status_crab); 
         }
     }
-    /*if(pthread_equal(id,tid[2]))
-    {
-        // feed
-        int opsi;
-        printf("status lohan = %d  ||  status crab = %d\n", status_lohan, status_crab);
-        printf("Opsi:\n");
-        printf("1. Feed lohan\n");
-        printf("2. Feed crab\n");
-        printf("Input a number(1 or 2)> ");
-        scanf("%d", &opsi);
-        if(opsi == 1)
-        feed_lohan();
-        else if(opsi == 2)
-        feed_crab();
-        else{ 
-        printf("Number invalid, try again!");
-        sleep(4);
-        }
-        system("clear");
-    } */
-
     return NULL;
 }// end lohan_and_crab
