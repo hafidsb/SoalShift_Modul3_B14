@@ -61,11 +61,11 @@ int main(void)
     }// end while
     
     printf("*Boop~* Game over! x.x\n"); check = 1;
-    printf("Waiting remaining threads to finish executing ..\n");
+    /*printf("Waiting remaining threads to finish executing ..\n");
     pthread_join(tid[0],NULL);
     pthread_join(tid[1],NULL);  
 
-    printf("... Exit complete!\n");
+    printf("... Exit complete!\n");*/
     return 0;
 } // end main()
 

@@ -10,10 +10,10 @@
 void *count_word(void *arg)
 {
     //printf("cek\n");
-    FILE *f;
     char word_search[25]; // ini kata yang dicari
     char word_read[100]; // ini isi file stream yang akan dibaca
     int temp = 0;
+    FILE *f;
     f = fopen("Novel.txt", "r");
     strcpy(word_search, arg);
     //printf("%s\n", word_search);
