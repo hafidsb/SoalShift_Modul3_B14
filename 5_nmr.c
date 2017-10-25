@@ -8,9 +8,25 @@
 *compile dengan cara gcc -pthread -o [output] input.c *
 *******************************************************/
 
-void * count_word(void *arg);
+void *count_word(void *arg)
+{
+    printf("cek\n");
+    FILE *f;
+    char word_search[25]; // ini kata yang dicari
+    char word_read[666]; // ini isi file stream yang akan dibaca
+    int temp = 0;
+    f = fopen("Novel.txt", "r");
+    strcpy(word_search, arg);
+    while(fscanf(f, "%s", word_read) != EOF)
+    {
+        if(strstr(word_read, word_search) != NULL) temp++;
+    }
+    fclose(f);    
+    printf("\nJumlah kata %s : %d kata\n", word_search, temp);
+    
+}
 
-int main(int argc, char * argu[])
+int main(int argc, char *argu[])
 {
     int i=1;
     
@@ -30,20 +46,3 @@ int main(int argc, char * argu[])
     return 0;
 }
 
-void * count_word(void *arg)
-{
-    printf("cek\n");
-    FILE * f;
-    char word_search[25]; // ini kata yang dicari
-    char word_read[666]; // ini isi file stream yang akan dibaca
-    int temp = 0;
-    f = fopen("Novel.txt", "r");
-    strcpy(word_search, arg);
-    while(fscanf(f, "%s", word_read) != EOF)
-    {
-        if(strstr(word_read, word_search) != NULL) temp++;
-    }
-    fclose(f);    
-    printf("\nJumlah kata %s : %d kata\n", word_search, temp);
-    
-}
