@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     {
         angkanya= atoi(argv[i]);
         int cek= pthread_create(&tid, NULL, hitungfaktorial, NULL);
-        if(!cek)
+        if(cek!=0)
         {
             printf("Gagal membuat thread, return value = %d\n", cek);
             exit(EXIT_FAILURE);
