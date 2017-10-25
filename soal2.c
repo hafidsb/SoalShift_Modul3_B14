@@ -11,10 +11,11 @@ int indekP1= 0, indekP2=1;
 int board[2][16];
 int play;
 int nilai[2];
+int tmp, lubang;
 
 void *CekSelesai(void *argv)
 {
-	int i, ranjau, id = *((int *)argv);
+	int i, ranjau, id= *((int *)argv);
 	while (1)
 	{
 		ranjau = 0;
@@ -39,7 +40,28 @@ void *CekSelesai(void *argv)
 	return NULL;
 }
 
-void *PasangRanjau(void *p_id)
+void *PasangRanjau(void *playerid)
+{
+	int i;
+	if (*((int *)playerid) == 0)
+		printf("Player1 memasang ranjau!\n");
+	else
+		printf("Player2 memasang ranjau!\n");
+	do
+	{
+		printf("Berapa ranjau yang akan dipasang? ");
+		scanf("%d", &tmp);
+		if(tmp < 1 || tmp > 4)	printf("Maaf, hanya bisa memasang 1-4 ranjau saja.\n");
+	}while (tmp < 1 || tmp > 4);
+
+	printf("Pasang ranjau pada lubang (0-15) ke? ");
+	for (i = 0; i < tmp; i++)
+	{
+		scanf("%d", &lubang);
+		board[*((int *)playerid)][lubang]= 1;
+	}
+	return NULL;
+}
 
 void *TebakRanjau(void *p_id)
 
