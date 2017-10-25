@@ -6,6 +6,7 @@
 
 pthread_t Board1, Board2;
 
+int gameplay=1;
 int indekP1= 0, indekP2=1;
 int board[2][16];
 int play;
@@ -23,10 +24,24 @@ void *CekSelesai(void *argv)
 		}
 		if(ranjau==16) break;
 	}
-	whoWin(NULL);
+	//Tampilkan pemenang
+	if(nilai[0] > nilai[1])
+	{
+		printf("\nPlayer1 Win!\n");
+	}
+	else if(nilai[0] < nilai[1])
+	{
+		printf("\nPlayer2 Win!\n");
+	}
+	else printf("\nGame Draw\n");
+	gameplay= 0;
+	
 	return NULL;
 }
 
+void *PasangRanjau(void *p_id)
+
+void *TebakRanjau(void *p_id)
 
 int main(){
 	//inisialisasi board
@@ -47,4 +62,27 @@ int main(){
             printf("Gagal membuat thread, return value = %d\n", cek);
             exit(EXIT_FAILURE);
         }
+
+	//Mulai Game
+	while(gameplay)
+	{
+		//perlihatkan nilai
+		printf("Player1: %d || Player2: %d\n", nilai[0], nilai[1]);
+		printf("--------------------------\n");
+		
+		if(play == 0)
+		{
+			PasangRanjau((void *)&play);
+			play= 1;
+			TebakRanjau((void *)&play);
+		}
+		else if(play == 1)
+		{
+			PasangRanjau((void *)&play);
+			play= 0;
+			TebakRanjau((void *)&play);
+		}
+	}
+
+	return 0;
 }
