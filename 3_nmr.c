@@ -91,6 +91,7 @@ void * lohan_and_crab(void *arg)
           sleep(10);
           if(check == 1) break;
           status_lohan -= 15;
+          printf("\nlohan loses 15 HP || Status lohan = %d\n", status_lohan);
           //printf("\nStatus Lohan = %d\n", status_lohan);
           if(check == 1) break;         
         }    
@@ -103,6 +104,7 @@ void * lohan_and_crab(void *arg)
           sleep(20);
           if(check == 1) break;
           status_crab -= 10;
+          printf("\ncrab loses 10 HP || Status lohan = %d\n", status_crab);
           //printf("\nStatus Crab = %d\n", status_crab);
           if(check == 1)break;             
         }
