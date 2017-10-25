@@ -80,9 +80,9 @@ void * feed_crab()
 }
 
 void * lohan_and_crab(void *arg)
-{
+{   
     pthread_t id = pthread_self();
- 
+    
     if(pthread_equal(id,tid[0]))
     {
         //ini lohan yaah

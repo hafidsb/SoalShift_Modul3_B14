@@ -9,29 +9,45 @@
 *******************************************************/
 
 pthread_t tid[111];//inisialisasi array untuk menampung thread 
+char  word[25]; // arr yg tampung tiap kata
 
-void* playandcount(void *arg)
+void * count_word(void *arg);
+
+int main(int argc, char ** argu)
 {
-    return NULL;
-}
-int main(void)
-{
-    int i=0;
+    int i=1;
     int err;
-    while(i<2)//looping membuat thread 2x
+
+    while(i<=argc)//looping membuat thread sebanyak argumen
     {
-        err=pthread_create(&(tid[i]),NULL,&playandcount,NULL);//membuat thread
+        strcpy(word, argu[i]);
+        err=pthread_create(&(tid[i]),NULL, &count_word, NULL);//membuat thread
         if(err!=0)//cek error
         {
-            printf("\n can't create thread : [%s]",strerror(err));
+            printf("\n can't create thread : [%s]\n",strerror(err));
         }
         else
         {
-            printf("\n create thread success");
+            printf("\n create thread success\n");
         }
         i++;
     }
     pthread_join(tid[0],NULL);
     pthread_join(tid[1],NULL);
     return 0;
+}
+
+void * count_word(void *arg)
+{
+    pthread_t id = pthread_self();
+    
+    if(pthread_equal(id,tid[1]))
+    {
+        printf("%s 1\n", word);    
+    }
+    
+    if(pthread_equal(id,tid[2]))
+    {
+        printf("%s 2\n", word);    
+    }
 }
