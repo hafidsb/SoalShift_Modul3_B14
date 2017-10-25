@@ -27,4 +27,15 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+void *hitungfaktorial(void *arg)
+{
+    int hasil= 1;
+    int i;
 
+    for (i= 1; i<= angkanya; i++)
+    {
+        hasil= hasil * i;
+    }
+
+    printf("Hasil %d! = %d\n", angkanya, hasil);
+}
