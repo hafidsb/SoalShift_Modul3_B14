@@ -8,9 +8,8 @@
 *compile dengan cara gcc -pthread -o [output] input.c *
 *******************************************************/
 
-pthread_t tid[111];//inisialisasi array untuk menampung thread 
-char  word[25]; // arr yg tampung tiap kata
-int counter = 0;
+char word_search[25]; // ini kata yang dicari
+char word_read[666]; // ini isi file stream yang akan dibaca
 
 void * count_word(void *arg);
 
@@ -32,23 +31,26 @@ int main(int argc, char * argu[])
         }
         i++;
     }
-    pthread_join(tid[0],NULL);
-    pthread_join(tid[1],NULL);
+
+    while(i<=argc)
+    {
+        pthread_join(tid[i],NULL);
+        i++;
+    }
+    
     return 0;
 }
 
 void * count_word(void *arg)
 {
     FILE *f;
-    char y;
-    char v[1024];
-    int a = 0, b = 0;    
-    //int var[111]; // tamppung counter masing2 kata
-    //counter++;
+    int temp = 0;
     f = fopen("Novel.txt", "r");
-    while((y = fget(f)) != EOF)
+    strcpy(word_search, arg);
+    while(fscanf(f, "%s", word_read) != EOF)
     {
-        if(strstr(v, "ifah")) a++;
+        if(strstr(word_read, word_read) != NULL) temp++;
     }
-    fclose();
+    fclose(f);
+    printf("\nJumlah kata %s : %d kata\n", word_search, temp);
 }
