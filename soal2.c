@@ -63,7 +63,28 @@ void *PasangRanjau(void *playerid)
 	return NULL;
 }
 
-void *TebakRanjau(void *p_id)
+void *TebakRanjau(void *playerid)
+{
+	int i;
+	if (*((int *)playerid) == 0)
+		printf("Silahkan Player1 untuk menebak!\n");
+	else
+		printf("Silahkan Player2 untuk menebak!\n");
+	printf("Pilih lubang yang menurut anda aman dari ranjau! ");
+	for(i=0;i<4;i++){	
+		scanf("%d", &tmp);
+		if (board[(*((int *)playerid)+1)%2][tmp] == 0)
+		{
+			nilai[*((int *)playerid)]++;
+		}
+		else
+		{
+			nilai[(*((int *)playerid)+1)%2]++;
+		}
+	}
+	return NULL;
+}
+
 
 int main(){
 	//inisialisasi board
