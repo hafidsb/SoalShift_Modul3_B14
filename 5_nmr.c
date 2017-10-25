@@ -8,31 +8,20 @@
 *compile dengan cara gcc -pthread -o [output] input.c *
 *******************************************************/
 
-char word_search[25]; // ini kata yang dicari
-char word_read[666]; // ini isi file stream yang akan dibaca
-
 void * count_word(void *arg);
 
 int main(int argc, char * argu[])
 {
     int i=1;
-    int err;
-
-    while(i<=argc)//looping membuat thread sebanyak argumen
+    
+    pthread_t tid[argc]; // isinya trit-trit gitu sesuai banyak input
+    while(i<argc)//looping membuat thread sebanyak argumen
     {
-        err=pthread_create(&(tid[i]),NULL, &count_word, (void *)argu[i]);//membuat thread
-        if(err!=0)//cek error
-        {
-            printf("\n can't create thread : [%s]\n",strerror(err));
-        }
-        else
-        {
-            printf("\n create thread success\n");
-        }
+        pthread_create(&(tid[i]),NULL, &count_word, (void *)argu[i]);//membuat thread
         i++;
     }
 
-    while(i<=argc)
+    while(i<argc)// pthread_join sebanyak jml argumen
     {
         pthread_join(tid[i],NULL);
         i++;
@@ -43,14 +32,18 @@ int main(int argc, char * argu[])
 
 void * count_word(void *arg)
 {
-    FILE *f;
+    printf("cek\n");
+    FILE * f;
+    char word_search[25]; // ini kata yang dicari
+    char word_read[666]; // ini isi file stream yang akan dibaca
     int temp = 0;
     f = fopen("Novel.txt", "r");
     strcpy(word_search, arg);
     while(fscanf(f, "%s", word_read) != EOF)
     {
-        if(strstr(word_read, word_read) != NULL) temp++;
+        if(strstr(word_read, word_search) != NULL) temp++;
     }
-    fclose(f);
+    fclose(f);    
     printf("\nJumlah kata %s : %d kata\n", word_search, temp);
+    
 }
