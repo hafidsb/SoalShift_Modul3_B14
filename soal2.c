@@ -96,13 +96,13 @@ int main(){
 	int a= pthread_create(&Board1, NULL, &CekSelesai, (void *)&indekP1);
 	if(a!=0)
         {
-            printf("Gagal membuat thread, return value = %d\n", cek);
+            printf("Gagal membuat thread, return value = %d\n", a);
             exit(EXIT_FAILURE);
         }
 	int b= pthread_create(&Board2, NULL, &CekSelesai, (void *)&indekP2);
 	if(b!=0)
         {
-            printf("Gagal membuat thread, return value = %d\n", cek);
+            printf("Gagal membuat thread, return value = %d\n", b);
             exit(EXIT_FAILURE);
         }
 
@@ -110,8 +110,9 @@ int main(){
 	while(gameplay)
 	{
 		//perlihatkan nilai
+		printf("\n---------------------------\n");		
 		printf("Player1: %d || Player2: %d\n", nilai[0], nilai[1]);
-		printf("--------------------------\n");
+		printf("---------------------------\n");
 		
 		if(play == 0)
 		{
