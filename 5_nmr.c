@@ -10,18 +10,18 @@
 
 pthread_t tid[111];//inisialisasi array untuk menampung thread 
 char  word[25]; // arr yg tampung tiap kata
+int counter = 0;
 
 void * count_word(void *arg);
 
-int main(int argc, char ** argu)
+int main(int argc, char * argu[])
 {
     int i=1;
     int err;
 
     while(i<=argc)//looping membuat thread sebanyak argumen
     {
-        strcpy(word, argu[i]);
-        err=pthread_create(&(tid[i]),NULL, &count_word, NULL);//membuat thread
+        err=pthread_create(&(tid[i]),NULL, &count_word, (void *)argu[i]);//membuat thread
         if(err!=0)//cek error
         {
             printf("\n can't create thread : [%s]\n",strerror(err));
@@ -39,15 +39,16 @@ int main(int argc, char ** argu)
 
 void * count_word(void *arg)
 {
-    pthread_t id = pthread_self();
-    
-    if(pthread_equal(id,tid[1]))
+    FILE *f;
+    char y;
+    char v[1024];
+    int a = 0, b = 0;    
+    //int var[111]; // tamppung counter masing2 kata
+    //counter++;
+    f = fopen("Novel.txt", "r");
+    while((y = fget(f)) != EOF)
     {
-        printf("%s 1\n", word);    
+        if(strstr(v, "ifah")) a++;
     }
-    
-    if(pthread_equal(id,tid[2]))
-    {
-        printf("%s 2\n", word);    
-    }
+    fclose();
 }
